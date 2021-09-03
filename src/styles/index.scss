@@ -1,5 +1,6 @@
 @import './fonts.scss';
 @import './colors.scss';
+@import './shards.scss';
 
 body {
   background: white !important;
@@ -30,5 +31,14 @@ a {
   &:hover {
     color: $blue-shadow !important;
     text-decoration: none !important;
+  }
+}
+
+/* Layouts */
+
+.grid-flex {
+  display: flex;
+  &-wrap {
+    flex-wrap: wrap;
   }
 }

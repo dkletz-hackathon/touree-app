@@ -29,6 +29,75 @@ $side-bar: 28vh;
   margin-top: $search-bar;
 }
 
+/* Searchbar */
+
+.dashboard-searchbar-wrapper {
+  border-bottom: 1px solid $border;
+  position: fixed;
+  z-index: 99;
+  width: calc(100% - #{$side-bar});
+}
+
+.dashboard-searchbar {
+  height: $search-bar;
+  background: #f7fafc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    height: $search-bar-profile;
+    width: $search-bar-profile;
+    border-radius: 100px;
+    margin-left: 20px;
+  }
+}
+
+.dashboard-search {
+  display: flex;
+  align-items: center;
+
+  > span {
+    font-size: 2.25vh;
+    margin-right: 10px;
+  }
+
+  input {
+    width: 500px;
+    font-size: 1.5vh;
+    background: none;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.dashboard-searchbar-actions {
+  display: flex;
+  align-items: center;
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 1vh 1.25vh;
+    border-radius: 6px;
+    background: $blue;
+    color: white;
+    margin-right: 10px;
+  }
+  button > span {
+    margin-right: 8px;
+    font-size: 2vh;
+  }
+  button > p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.05vh;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+  }
+}
+
 /* Sidebar */
 
 .dashboard-logo {

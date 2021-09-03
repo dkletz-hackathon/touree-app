@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { Container, Row, Col } from 'shards-react'
 
+import SearchBar from './SearchBar'
 import SideBar from './SideBar'
 import './style.scss'
 
@@ -19,6 +20,7 @@ export default function Dashboard(props) {
             <div className="dashboard-container">
               <SideBar />
               <div className="dashboard-contents">
+                <SearchBar />
                 <Container fluid>
                   <Row>
                     <Col
