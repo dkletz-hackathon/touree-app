@@ -1,0 +1,10 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/variables.scss';
+
+$side-bar: 28vh;
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  flex-wrap: wrap;
+}
