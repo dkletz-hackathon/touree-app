@@ -1,0 +1,8 @@
+@import './fonts.scss';
+
+body, * {
+  margin: 0;
+  font-family: 'Josefin Sans', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
