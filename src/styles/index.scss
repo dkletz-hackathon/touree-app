@@ -1,8 +1,20 @@
 @import './fonts.scss';
 
+body {
+  background: white !important;
+}
+
 body, * {
   margin: 0;
   font-family: 'Josefin Sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
 }
