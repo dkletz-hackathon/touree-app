@@ -1,12 +1,21 @@
 import React from 'react'
 import { Switch, Route, useRouteMatch, useLocation, withRouter } from 'react-router-dom'
 
+import SearchBar from './SearchBar'
+import './style.scss'
+
 const MainPage = withRouter(
   function MainPage(props) {
     let match = useRouteMatch()
 
     return (
       <div className="mainpage">
+        <div className="mainpage-content">
+          <SearchBar
+            isMenuButtonVisible={true}
+            onMenuClick={null}
+          />
+        </div>
         <Switch>
           {props.routeChildren.map(route => (
             <Route
