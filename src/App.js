@@ -5,6 +5,8 @@ import {
 } from'react-router-dom'
 
 import routes from './routes'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/shards-dashboards.1.1.0.min.css'
 
 function App() {
   return (
