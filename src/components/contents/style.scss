@@ -1,0 +1,53 @@
+$width: 100%;
+
+.video-thumbnail {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  width: $width;
+
+  .thumbnail-photo {
+    width: $width;
+    height: 18vh;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 9px;
+  }
+
+  .thumbnail-channel {
+    right: 1.5vh;
+    top: 16vh;
+    position: absolute;
+    width: 5vh;
+    height: 5vh;
+    object-fit: cover;
+    border-radius: 100px;
+    border: 3px solid white;
+  }
+
+  h1, h2, p {
+    letter-spacing: normal;
+  }
+
+  h1 {
+    font-size: 1vw;
+    line-height: 1.5vw;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 1.4vh;
+    font-weight: normal;
+    color: #606060;
+    margin-bottom: 1vh;
+    margin-top: 0.5vh;
+    line-height: normal;
+  }
+
+  p {
+    font-size: 1.5vh;
+    color: #606060;
+    line-height: normal;
+  }
+}
