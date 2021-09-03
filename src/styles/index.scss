@@ -1,4 +1,5 @@
 @import './fonts.scss';
+@import './colors.scss';
 
 body {
   background: white !important;
@@ -26,4 +27,8 @@ input {
 
 a {
   text-decoration: none;
+  &:hover {
+    color: $blue-shadow !important;
+    text-decoration: none !important;
+  }
 }

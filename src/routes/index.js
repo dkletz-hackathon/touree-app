@@ -13,6 +13,7 @@ const routes = [
         path: '',
         exact: true,
         component: CreatorDashboard,
+        useLayout: true,
       }
     ]
   },
