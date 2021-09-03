@@ -3,6 +3,8 @@ import { Row, Col } from 'shards-react'
 
 import './style.scss'
 import PageTitle from '../../../components/dashboard/PageTitle'
+import RecentUpdate from './RecentUpdate'
+import AudienceGraph from './AudienceGraph'
 import Stats from './Stats'
 
 export default class CreatorDashboard extends React.Component {
@@ -19,8 +21,9 @@ export default class CreatorDashboard extends React.Component {
         <Row>
           <Col lg="8">
             <Stats />
+            <AudienceGraph />
           </Col>
-          <Col lg="4" />
+          <Col lg="4"><RecentUpdate /></Col>
         </Row>
       </>
     )
