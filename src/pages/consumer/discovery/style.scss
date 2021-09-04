@@ -56,3 +56,23 @@
     }
   }
 }
+
+.videos-section-items a {
+  width: calc(100% / 4);
+}
+
+.grid-flex {
+  .videos-section {
+    width: 50%;
+  }
+  .videos-section:first-child {
+    margin-right: 1vw;
+  }
+  .videos-section:last-child {
+    margin-left: 1vw;
+  }
+
+  .videos-section-items a {
+    width: calc(100% / 3);
+  }
+}
