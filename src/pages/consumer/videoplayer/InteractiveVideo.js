@@ -104,7 +104,7 @@ class InteractiveVideo extends React.Component {
     playerContainers.push({
       name: startingChapterId,
       zIndex: 1,
-      source: 'http://www.touree.live/' + startingChapter?.video_url,
+      source: 'http://' + window.location.hostname + "/" + startingChapter?.video_url,
       nextChapterInContainer: true
     })
 
@@ -114,7 +114,7 @@ class InteractiveVideo extends React.Component {
       playerContainers.push({
         name: nextChapterId,
         zIndex: 0,
-        source: 'http://www.touree.live/' + chapters[nextChapterId]?.video_url,
+        source: 'http://' + window.location.hostname + "/" + chapters[nextChapterId]?.video_url,
       })
     }
 
