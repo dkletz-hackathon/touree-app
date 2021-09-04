@@ -12,12 +12,15 @@ import './style.scss'
 import mockVideo from '../../../data/mockVideo'
 import logo from '../../../assets/logo-studio.png'
 import profile from '../../../assets/thumbnails/profile1.jpg'
+import { uploadImage } from '../../../api/imageApi'
+import { createProject } from '../../../api/videoApi'
 
 let Modal = withReactContent(Swal)
 
-const CreatorStudio = inject('nodeStore')(observer(
+const CreatorStudio = inject('nodeStore', 'projectStore')(observer(
   function CreatorStudio(props) {
     let history = useHistory()
+    let { nodeStore, projectStore } = props
     let [selectedNode, setSelectedNode] = React.useState(null)
 
     let showNodeSettings = id => {
@@ -36,10 +39,10 @@ const CreatorStudio = inject('nodeStore')(observer(
           <>
             <p className="studio-modal-header">You will publish following video</p>
             <div className="studio-modal">
-              <img src={mockVideo.thumbnail} alt="publish" />
+              <img src={URL.createObjectURL(projectStore.thumbnail)} alt="publish" />
               <div className="studio-modal-info">
-                <h1>{mockVideo.title}</h1>
-                <p>{mockVideo.desc}</p>
+                <h1>{projectStore.title}</h1>
+                <p>{projectStore.desc}</p>
                 <div className="studio-modal-info-icons">
                   <span className="material-icons">account_tree</span>
                   <span className="material-info">4 Video Paths</span>
@@ -62,10 +65,20 @@ const CreatorStudio = inject('nodeStore')(observer(
     }
 
     let publishVideo = () => {
-      Modal.close()
-      setTimeout(() => {
-        history.push('/video/test-video')
-      }, 500)
+      const { projectStore } = props
+      uploadImage(projectStore.thumbnail)
+        .then(fileName => {
+          console.log(fileName)
+          const { title, desc } = projectStore
+          createProject(title, desc, fileName)
+            .then(data => {
+              console.log(data)
+            })
+          // Modal.close()
+          // setTimeout(() => {
+          //   history.push('/video/test-video')
+          // }, 500)
+        })
     }
 
     return (

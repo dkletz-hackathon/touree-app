@@ -3,7 +3,7 @@ const storyBooks = [{
   start: "start",
   chapters: {
     "start": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
       timeToShowOptions: 5,
       nextOptions: ["first", "second"],
       defaultNextOption: "first",
@@ -19,7 +19,7 @@ const storyBooks = [{
       }
     },
     "beach": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
       timeToShowOptions: 5,
       nextOptions: ["first", "second"],
       defaultNextOption: "first",
@@ -35,7 +35,7 @@ const storyBooks = [{
       }
     },
     "hill": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
       timeToShowOptions: 5,
       nextOptions: ["first", "second"],
       defaultNextOption: "first",
@@ -51,7 +51,7 @@ const storyBooks = [{
       }
     },
     "temple": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
       timeToShowOptions: 5,
       nextOptions: ["first", "second"],
       defaultNextOption: "first",
@@ -67,7 +67,7 @@ const storyBooks = [{
       }
     },
     "forest": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
       timeToShowOptions: 5,
       nextOptions: ["first", "second"],
       defaultNextOption: "first",
@@ -83,10 +83,10 @@ const storyBooks = [{
       }
     },
     "dinner": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
     },
     "home": {
-      source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      source: "http://68.183.224.203/api/static/video/33b6dfb9-2b06-41ef-bb2a-1e2e276fe9f2-1630774350509.mp4",
     },
   }
 }]
