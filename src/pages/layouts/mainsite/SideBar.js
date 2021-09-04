@@ -78,9 +78,12 @@ export default class SideBar extends React.Component {
   }
 
   render() {
+    let sidebarClassHidden = this.props.isSidebarVisible ? '' : 'hidden'
+    let overlayClassHidden = this.props.isOverlayVisible ? '' : 'hidden'
+
     return (
       <>
-        <div className="mainpage-sidebar">
+        <div className={`mainpage-sidebar ${sidebarClassHidden}`}>
           <Link to="/">
             <img src={logo} alt="logo" className="mainpage-logo" />
           </Link>
@@ -101,7 +104,10 @@ export default class SideBar extends React.Component {
             </div>
           ))}
         </div>
-        <div className="mainpage-overlay hidden" />
+        <div
+          className={`mainpage-overlay ${overlayClassHidden}`}
+          onClick={this.props.onClosing}
+        />
       </>
     )
   }
