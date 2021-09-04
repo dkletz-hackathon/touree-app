@@ -51,7 +51,12 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    const chapter = chapters[currentChapterId]
+    let chapter
+    chapters.forEach(c => {
+      if (c['id'] === currentChapterId) {
+        chapter = c
+      }
+    })
     const player = this.players[this.currentPlayer]
     const pState = player.getState();
     const remainingTime = pState.player.duration - pState.player.currentTime
@@ -69,7 +74,7 @@ class InteractiveVideo extends React.Component {
 
     if (remainingTime < TIME_TO_UPDATE) {
       this.nextChapter()
-    } else if (remainingTime < chapter.timeToShowOptions) {
+    } else if (remainingTime < parseInt(chapter.time_to_show_next)) {
       this.prepareNext()
     } else {
       this.setState({
@@ -84,29 +89,35 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    const startingChapterId = storyBook?.start
-    const chapters = storyBook?.chapters
+    const startingChapterId = storyBook?.start_detail_id
+    const chapters = storyBook?.details
 
-    const startingChapter = chapters[startingChapterId]
-    const nextChapters = startingChapter?.next
+    let startingChapter
+    chapters.forEach(c => {
+      if (c['id'] === startingChapterId) {
+        startingChapter = c
+      }
+    })
+    const nextChapters = startingChapter?.next_video_details
 
     const playerContainers = []
     playerContainers.push({
       name: startingChapterId,
       zIndex: 1,
-      source: startingChapter?.source,
+      source: 'http://' + window.location.hostname + "/" + startingChapter?.video_url,
       nextChapterInContainer: true
     })
 
-    for (let key in nextChapters) {
-      const nextChapterId = nextChapters[key].id
+    for (let i = 0; i < nextChapters.length; i++) {
+      const nextChapterId = nextChapters[i].id
       console.log(nextChapterId)
       playerContainers.push({
         name: nextChapterId,
         zIndex: 0,
-        source: chapters[nextChapterId]?.source,
+        source: 'http://' + window.location.hostname + "/" + chapters[nextChapterId]?.video_url,
       })
     }
+
 
     this.setState({
       ...this.state,
@@ -124,13 +135,18 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    const curr = chapters[currentChapterId]
-    if (curr.next === null) {
+    let curr
+    chapters.forEach(c => {
+      if (c['id'] === currentChapterId) {
+        curr = c
+      }
+    })
+    if (curr.next_video_details === null) {
       return
     }
 
     this.setState({
-      next: curr.next,
+      next: curr.next_video_details,
       showNext: true
     }, () => console.log(this.state))
   }
@@ -145,31 +161,34 @@ class InteractiveVideo extends React.Component {
     let { chapters, currentChapterId, selection, playerContainers, isFullscreen } = this.state;
     const currentChapter = chapters[currentChapterId]
 
-    if (!currentChapter?.next) {
+    if (!currentChapter?.next_video_details) {
       return
     }
 
-    selection = selection || "defaultNextOption"
-    if (selection === "defaultNextOption") {
+    selection = selection || "default_next_detail_id"
+    if (selection === "default_next_detail_id") {
       selection = currentChapter[selection]
     }
 
-    const nextChapterId = currentChapter.next[selection].id
+    const nextChapterId = currentChapter.next_video_details[selection].next_detail_id
     const nextChapter = chapters[nextChapterId]
     console.log('user select', nextChapter)
 
     console.log('starting to process player containers', playerContainers)
 
     let nextChapterNextOptions = []
-    if (nextChapter.next) {
-      nextChapterNextOptions = [...nextChapter.nextOptions]
+    if (nextChapter.next_video_details) {
+      nextChapterNextOptions = []
+      for (let i = 0; i < nextChapter.next_video_details.length; i++) {
+        nextChapterNextOptions.push(i)
+      }
     }
     playerContainers = playerContainers.map((playerContainer, i) => {
       console.log(playerContainers)
       let { source, name } = playerContainer
       if (playerContainer.name !== nextChapterId) {
         if (nextChapter.next) {
-          name = nextChapter.next[nextChapterNextOptions.pop()].id
+          name = nextChapter.next_video_details[nextChapterNextOptions.pop()].next_detail_id
           source = chapters[name]?.source
         }
       } else {
@@ -197,7 +216,7 @@ class InteractiveVideo extends React.Component {
       isFullscreen: false,
       currentChapterId: nextChapterId,
       playerContainers,
-      source: nextChapter?.source
+      source: nextChapter?.video_url
     }, () => {
       const { playerContainers } = this.state
       playerContainers.forEach((playerContainer, i) => {
@@ -221,7 +240,7 @@ class InteractiveVideo extends React.Component {
   }
 
   togglePlay = () => {
-    const player = this.players[this.currentPlayer] 
+    const player = this.players[this.currentPlayer]
     const pState = player.getState()
 
     if (pState.player.paused) {
@@ -234,6 +253,7 @@ class InteractiveVideo extends React.Component {
   render() {
     const { playerContainers, showNext, next, isPaused } = this.state
 
+
     const nextComponent = (
       <div onClick={this.togglePlay} className="interactive-video-options">
         {(Object.keys(next)).map((nextKey , _) => {
@@ -244,7 +264,7 @@ class InteractiveVideo extends React.Component {
               className="video-option-btn"
               onClick={() => this.selectNext(nextKey)}
             >
-              <p>{nextOpt.text}</p>
+              <p>{nextOpt.shown_text}</p>
             </div>
           )
         })}
@@ -254,14 +274,14 @@ class InteractiveVideo extends React.Component {
       <div onClick={() => this.players[this.currentPlayer].play()} className="overlay-paused">
         <div className="overlay-info">
           <h2>You're watching</h2>
-          <h1>Come! Join Us in a Virtual Trip to Bali</h1>
-          <p>We will take a look around into Bali wonders, go grab a note cause you never know you might want to write up some of these places name</p>
+          <h1>{this.props.storyBook?.title}</h1>
+          <p>{this.props.storyBook?.description}</p>
         </div>
         <div className="overlay-channels">
           <h2>Creators</h2>
           {[1, 2, 3].map(i => (
             <div className="overlay-channels-item" key={i}>
-              <img src="https://images.unsplash.com/photo-1539409363834-aa99701db1d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2253&q=80" alt="channel" />
+              <img src={`${this.props.storyBook?.thumbnail_image}`} alt="channel" />
               <div className="overlay-channels-item-info">
                 <p>Andre Wibisono</p>
                 <p>1.8M subscribers</p>
