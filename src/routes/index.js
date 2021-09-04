@@ -1,6 +1,7 @@
 import HomePage from '../pages/consumer/homepage/HomePage'
 import CreatorDashboard from '../pages/creator/dashboard/CreatorDashboard'
 import CreatorStudio from '../pages/creator/studio/CreatorStudio'
+import CreatorVideos from '../pages/creator/videolist/CreatorVideos'
 
 import MainPage from '../pages/layouts/mainsite/MainPage'
 import Dashboard from '../pages/layouts/dashboard/Dashboard'
@@ -21,6 +22,12 @@ const routes = [
         exact: true,
         component: CreatorStudio,
         useLayout: false,
+      },
+      {
+        path: 'videos',
+        exact: true,
+        component: CreatorVideos,
+        useLayout: true,
       }
     ]
   },
