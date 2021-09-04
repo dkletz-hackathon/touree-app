@@ -1,4 +1,6 @@
 import HomePage from '../pages/consumer/homepage/HomePage'
+import Discovery from '../pages/consumer/discovery/Discovery'
+
 import CreatorDashboard from '../pages/creator/dashboard/CreatorDashboard'
 import CreatorStudio from '../pages/creator/studio/CreatorStudio'
 import CreatorVideos from '../pages/creator/videolist/CreatorVideos'
@@ -46,6 +48,11 @@ const routes = [
         path: '',
         exact: true,
         component: HomePage,
+      },
+      {
+        path: 'discovery/:region',
+        exact: true,
+        component: Discovery
       }
     ]
   }
