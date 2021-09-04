@@ -69,7 +69,7 @@ class CreatorVideoDetails extends React.Component {
 								<div className="videodetail-item">
 									<p>Video Thumbnail</p>
 									<img
-										src={`${project.thumbnail_image}`}
+										src={`${window.location.hostname}/${project.thumbnail_image}`}
 										alt="thumbnail"
 									/>
 								</div>
