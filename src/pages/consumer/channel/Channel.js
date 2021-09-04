@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import './style.scss'
+import mockChannel from '../../../data/mockChannel'
+import VideoThumbnail from '../../../components/mainsite/videothumbnail'
 
 export default class Channel extends React.Component {
   state = {
@@ -49,6 +51,21 @@ export default class Channel extends React.Component {
             </div>
           ))}
         </div>
+        {mockChannel.map(mock => (
+          <div key={mock.title} className="videos-section">
+            <div className="videos-section-title">
+              <h1>{mock.title}</h1>
+              <Link to="#">View more</Link>
+            </div>
+            <div className="videos-section-items">
+              {mock.items.map(item => (
+                <Link to="/video/test-video" key={item.title}>
+                  <VideoThumbnail {...item} />
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     )
   }

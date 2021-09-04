@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import './style.scss'
+import mockDiscovery from '../../../data/mockDiscovery'
+import VideoThumbnail from '../../../components/mainsite/videothumbnail'
 
 export default class Discovery extends React.Component {
   render() {
@@ -18,6 +21,19 @@ export default class Discovery extends React.Component {
             </div>
           </div>
           <img alt="hero" src="https://images.unsplash.com/photo-1560103104-4623c14a473b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        </div>
+        <div className="videos-section">
+          <div className="videos-section-title">
+            <h1>{mockDiscovery.recommended.title}</h1>
+            <Link to="#">View more</Link>
+          </div>
+          <div className="videos-section-items">
+            {mockDiscovery.recommended.items.map(item => (
+              <Link to="/video/test-video" key={item.title}>
+                <VideoThumbnail {...item} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     )
