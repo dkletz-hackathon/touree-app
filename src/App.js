@@ -8,6 +8,7 @@ import { Provider } from 'mobx-react'
 import RootStore from './stores'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/shards-dashboards.1.1.0.min.css'
+import 'video-react/dist/video-react.css'
 
 import routes from './routes'
 

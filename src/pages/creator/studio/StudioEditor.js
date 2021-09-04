@@ -23,6 +23,11 @@ const StudioEditor = inject('nodeStore')(observer(
       return result
     }
 
+    handleNodeClick = (event, id) => {
+      event.stopPropagation()
+      this.props.onNodeClick(id)
+    }
+
     renderNodes = nodes => {
       return (
         <div className="nodes-column">
@@ -37,7 +42,7 @@ const StudioEditor = inject('nodeStore')(observer(
                     name={node.name}
                     onAdd={() => this.addNode(node.id)}
                     onDelete={() => this.deleteNode(node.id)}
-                    onClick={null}
+                    onClick={e => this.handleNodeClick(e, node.id)}
                   />
                 </div>
               </ArcherElement>

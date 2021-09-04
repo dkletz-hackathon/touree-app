@@ -81,6 +81,76 @@ $navbar: 55px;
     linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
 }
 
+.editor-draggable {
+  cursor: move;
+  display: inline-block;
+  border-radius: 10px;
+  transition-duration: 0.1s;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px dashed rgb(0, 152, 223);
+  }
+}
+
+.editor-settings {
+  width: calc(400px - 40px);
+  height: calc(100vh - #{$navbar});
+  border-left: 1px solid $border;
+  padding: 30px 20px;
+
+  input {
+    width: 100%;
+  }
+
+  .project-name {
+    font-size: 25px;
+  }
+}
+
+/* Studio Settings */
+
+.studio-title {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.studio-thumbnail {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+label[type="button"] {
+  background: white;
+  border: 2px solid $blue;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: $blue;
+  font-weight: 600;
+  transition-duration: 0.15s;
+
+  &:hover {
+    background: $blue;
+    color: white;
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.studio-node-update {
+  background: $blue;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 6px;
+}
+
 /* Video Node */
 
 .video-option {
