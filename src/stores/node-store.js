@@ -20,6 +20,7 @@ export class NodeStore {
         name: 'Start',
         text: 'Start',
         video: null,
+        videoName: '',
         next: [],
       },
     ]
@@ -106,5 +107,29 @@ export class NodeStore {
     }
 
     findNode(this.nodeList, id)
+  }
+
+  updateNodeVideoName = (id, videoName) => {
+    let findNode = (nodes, id) => {
+      let node
+      let found = false
+      for (node of nodes) {
+        if (node.id === id) {
+          node.videoName = videoName
+          found = true
+        } else if (node.hasOwnProperty('next')) {
+          findNode(node.next, id)
+        }
+        if (found) break
+      }
+    }
+
+    findNode(this.nodeList, id)
+  }
+
+  mapIntoStoryBooks = () => {
+    const sample = [
+      
+    ]
   }
 }

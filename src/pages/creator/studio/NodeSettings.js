@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import { Player } from 'video-react'
 
 import placeholder from '../../../assets/thumbnails/thumbnail-placeholder.jpg'
+import { uploadVideo } from '../../../api/videoApi'
 
 const NodeSettings = inject('nodeStore')(observer(
   class NodeSettings extends React.Component {
@@ -18,8 +19,14 @@ const NodeSettings = inject('nodeStore')(observer(
     }
 
     updateNode = () => {
+      const { nodeStore } = this.props
       const { id, name, text, video } = this.state
-      this.props.nodeStore.updateNode(id, name, text, video)
+      nodeStore.updateNode(id, name, text, video)
+      uploadVideo(video)
+        .then(videoName => {
+          console.log(videoName)
+          nodeStore.updateNodeVideoName(id, videoName)
+        })
     }
 
     componentDidMount = () => {
