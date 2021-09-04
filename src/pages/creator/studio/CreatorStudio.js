@@ -4,6 +4,7 @@ import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
 import NodeSettings from './NodeSettings'
+import ProjectSettings from './ProjectSettings'
 import StudioEditor from './StudioEditor'
 import './style.scss'
 import logo from '../../../assets/logo-studio.png'
@@ -15,6 +16,10 @@ const CreatorStudio = inject('nodeStore')(observer(
 
     let showNodeSettings = id => {
       setSelectedNode(toJS(props.nodeStore.getNode(id)))
+    }
+
+    let showProjectSettings = () => {
+      setSelectedNode(null)
     }
 
     return (
@@ -34,11 +39,14 @@ const CreatorStudio = inject('nodeStore')(observer(
         <div className="studio-container">
           <StudioEditor
             onNodeClick={showNodeSettings}
+            onBackgroundClick={showProjectSettings}
           />
           <div className="editor-settings">
             {selectedNode ? (
               <NodeSettings node={selectedNode} />
-            ) : null}
+            ) : (
+              <ProjectSettings />
+            )}
           </div>
         </div>
       </>

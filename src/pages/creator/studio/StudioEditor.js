@@ -61,10 +61,18 @@ const StudioEditor = inject('nodeStore')(observer(
       this.props.nodeStore.deleteNode(id)
     }
 
+    handleBackgroundClick = event => {
+      event.preventDefault()
+      this.props.onBackgroundClick()
+    }
+
     render() {
       const nodes = toJS(this.props.nodeStore.nodeList)
       return (
-        <div className="editor-container">
+        <div
+          className="editor-container"
+          onClick={this.handleBackgroundClick}
+        >
           {nodes && (
             <Draggable positionOffset={{x: 0, y: 200}}>
               <div className="editor-draggable">
