@@ -1,4 +1,5 @@
 import { makeObservable, observable, action } from 'mobx'
+import { createChapter, updateChapter } from '../api/videoApi'
 
 export class NodeStore {
   curNodeIdx = 0
@@ -13,14 +14,16 @@ export class NodeStore {
       updateNode: action,
       addNode: action,
       deleteNode: action,
+      publishStoryBook: action,
     })
     this.nodeList = [
       {
         id: 'node0',
+        uuid: '',
         name: 'Start',
         text: 'Start',
         video: null,
-        videoName: '',
+        videoUrl: '',
         next: [],
       },
     ]
@@ -109,13 +112,13 @@ export class NodeStore {
     findNode(this.nodeList, id)
   }
 
-  updateNodeVideoName = (id, videoName) => {
+  updateNodeVideoURL = (id, videoUrl) => {
     let findNode = (nodes, id) => {
       let node
       let found = false
       for (node of nodes) {
         if (node.id === id) {
-          node.videoName = videoName
+          node.videoUrl = videoUrl
           found = true
         } else if (node.hasOwnProperty('next')) {
           findNode(node.next, id)
@@ -127,9 +130,54 @@ export class NodeStore {
     findNode(this.nodeList, id)
   }
 
-  mapIntoStoryBooks = () => {
-    const sample = [
-      
-    ]
+  publishStoryBook = async projectUuid => {
+    var mapIdToUuid = {}
+
+    let findNode = async (nodes, id) => {
+      for (let node of nodes) {
+        const response = await createChapter(projectUuid, node.videoUrl, null, 5, [])
+        if (response.status === 0) {
+          mapIdToUuid[node.id] = response.data.id
+          if (node.hasOwnProperty('next')) {
+            await findNode(node.next, id)
+          }
+        }
+      }
+    }
+
+    await findNode(this.nodeList, this.nodeList[0].id)
+
+    let updateNote = async (nodes, id) => {
+      let node
+      for (node of nodes) {
+        let nextVideoDetails = []
+        if (node.hasOwnProperty('next')) {
+          let childNode
+          for (childNode of node.next) {
+            const childId = childNode.id
+            nextVideoDetails.push(
+              {
+                next_detail_id: mapIdToUuid[childId],
+                shown_text: childNode.name
+              }
+            )
+          }
+        }
+
+        const response = await updateChapter(
+          mapIdToUuid[node.id],
+          projectUuid,
+          node.videoUrl,
+          null,
+          5,
+          nextVideoDetails
+        )
+        if ((response.status === 0) && (node.hasOwnProperty('next'))) {
+          await updateNote(node.next, id)
+        }
+      }
+    }
+
+    updateNote(this.nodeList, this.nodeList[0].id)
   }
 }

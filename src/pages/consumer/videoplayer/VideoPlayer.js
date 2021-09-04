@@ -14,7 +14,7 @@ class VideoPlayer extends React.Component {
 
   componentDidMount = async () => {
     const { videoId } = this.props.match.params
-    const response = await fetch(`http://www.touree.live/api/video/${videoId}?detail=true`)
+    const response = await fetch(`http://${window.location.hostname}/api/video/${videoId}?detail=true`)
     this.setState({
       body: (await response.json()).data
     })
@@ -23,6 +23,11 @@ class VideoPlayer extends React.Component {
   render = () => {
     console.log('hello')
     console.log(this.state.body)
+
+		if (!this.state.body) {
+			return <div/>
+		}
+		
     return (
       <InteractiveVideo storyBook={this.state.body}/>
     );

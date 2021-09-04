@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react'
 
 import placeholder from '../../../assets/thumbnails/thumbnail-placeholder.jpg'
 
-const ProjectSettings = inject('projectStore')(observer(
+const ProjectSettings = inject('nodeStore', 'projectStore')(observer(
   class ProjectSettings extends React.Component {
 
     handleUpload = async e => {

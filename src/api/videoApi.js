@@ -11,9 +11,9 @@ async function uploadVideo(video) {
 		body: formData,
 	};
 
-	return await fetch(url, options)
-		.then((response) => response.json())
-		.then((data) => data.data.replace("static/video/", ""));
+  return await fetch(url, options)
+    .then(response => response.json())
+    .then(data => data.data)
 }
 
 /* Get static video API */
@@ -31,14 +31,17 @@ async function createProject(title, desc, thumbnail) {
 	const url = `${BASE_URL}/video`;
 	const options = {
 		method: "POST",
-		body: {
+    headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
 			title: title,
 			description: desc,
 			thumbnail_image: thumbnail,
-		},
+		}),
 	};
 
-	return await fetch(url, options).then((response) => response.json());
+	return await fetch(url, options)
+    .then((response) => response.json())
+    .then(data => data.data.id)
 }
 
 async function updateProject(id, title, desc, thumbnail, startDetailId=null) {
@@ -53,7 +56,7 @@ async function updateProject(id, title, desc, thumbnail, startDetailId=null) {
 		},
 	};
 
-	return await fetch(url, options).then((response) => response.json());	
+	return await fetch(url, options).then((response) => response.json());
 }
 
 async function getProject(videoId) {
@@ -62,7 +65,6 @@ async function getProject(videoId) {
 
 	return await fetch(url, options).then((response) => response.json());
 }
-
 
 async function createChapter(
 	videoId,
@@ -74,14 +76,19 @@ async function createChapter(
 	const url = `${BASE_URL}/video_detail`;
 	const options = {
 		method: "POST",
-		body: {
-			video_id: videoId,
-			video_url: videoURL,
-			default_next_detail_id: defaultNextDetailId,
-			time_to_show_next: timeToShowNext,
-			next_video_details: nextVideoDetails,
-		},
+    headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(
+      {
+        video_id: videoId,
+        video_url: videoURL,
+        default_next_detail_id: defaultNextDetailId,
+        time_to_show_next: timeToShowNext,
+        next_video_details: nextVideoDetails,
+      }
+    ),
 	};
+
+  console.log(options)
 
 	return await fetch(url, options).then((response) => response.json());
 }
@@ -97,13 +104,16 @@ async function updateChapter(
 	const url = `${BASE_URL}/video_detail/${id}`;
 	const options = {
 		method: "POST",
-		body: {
-			video_id: videoId,
-			video_url: videoURL,
-			default_next_detail_id: defaultNextDetailId,
-			time_to_show_next: timeToShowNext,
-			next_video_details: nextVideoDetails,
-		},
+    headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(
+      {
+        video_id: videoId,
+        video_url: videoURL,
+        default_next_detail_id: defaultNextDetailId,
+        time_to_show_next: timeToShowNext,
+        next_video_details: nextVideoDetails,
+      }
+    ),
 	};
 
 	return await fetch(url, options).then((response) => response.json());
