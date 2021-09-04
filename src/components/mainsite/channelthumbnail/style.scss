@@ -1,0 +1,44 @@
+.channel-thumbnail {
+  width: 100%;
+}
+
+.channel-thumbnail-images {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    width: 50%;
+    height: 9vh;
+  }
+}
+
+.channel-thumbnail-info {
+  display: flex;
+  margin-top: 1.2vh;
+  align-items: center;
+
+  img {
+    height: 4.5vh;
+    width: 4.5vh;
+    object-fit: cover;
+    border-radius: 100px;
+    margin-right: 1vh;
+  }
+
+  h1 {
+    font-size: 2vh;
+    line-height: 2vh;
+    margin: 0 0 0.35vh 0;
+    color: black;
+  }
+
+  p {
+    color: gray;
+    font-size: 1.5vh;
+    line-height: 1.5vh;
+    margin: 0;
+  }
+}

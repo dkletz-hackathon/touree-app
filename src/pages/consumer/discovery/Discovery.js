@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import './style.scss'
 import mockDiscovery from '../../../data/mockDiscovery'
+import ChannelThumbnail from '../../../components/mainsite/channelthumbnail'
 import VideoThumbnail from '../../../components/mainsite/videothumbnail'
 
 export default class Discovery extends React.Component {
@@ -21,6 +22,21 @@ export default class Discovery extends React.Component {
             </div>
           </div>
           <img alt="hero" src="https://images.unsplash.com/photo-1560103104-4623c14a473b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        </div>
+        <div className="grid-flex">
+          <div className="videos-section">
+            <div className="videos-section-title">
+              <h1>{mockDiscovery.channels.title}</h1>
+              <Link to="#">View more</Link>
+            </div>
+            <div className="videos-section-items">
+              {mockDiscovery.channels.items.map(item => (
+                <Link to="/channel/hello" key={item.name}>
+                  <ChannelThumbnail {...item} />
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
         <div className="videos-section">
           <div className="videos-section-title">
