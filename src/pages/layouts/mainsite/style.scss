@@ -109,6 +109,48 @@ $side-bar: 25vh;
   }
 }
 
+.mainpage-popup {
+  position: fixed;
+  top: 5vh;
+  right: 40px;
+  z-index: 10;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 2px 4px 16px -5px rgba(0,0,0,0.5);
+  padding: 10px 0;
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 10px 40px 10px 16px;
+    transition-duration: 0.1s;
+  }
+
+  a:hover {
+    span {
+      color: $blue-shadow;
+    }
+    p {
+      color: $blue;
+    }
+  }
+
+  span {
+    font-size: 2.5vh;
+    color: rgb(172, 172, 172);
+    margin-right: 8px;
+    transition-duration: 0.1s;
+  }
+
+  p {
+    margin: 0;
+    color: rgb(31, 31, 31);
+    font-size: 1.5vh;
+    font-weight: 600;
+    transition-duration: 0.1s;
+  }
+}
+
 /* Route */
 
 .mainpage-route {
