@@ -1,0 +1,137 @@
+@import '../../../styles/colors.scss';
+
+$video-width: 100vw;
+$video-height: 100vh;
+
+.interactive-video {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.interactive-video-player {
+  width: $video-width;
+  height: $video-height;
+  position: absolute;
+}
+
+.interactive-video-options {
+  top: 0;
+  position: absolute;
+  z-index: 99;
+  width: $video-width;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-option-btn {
+  cursor: pointer;
+  background: $blue;
+  color: white;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 0 100px;
+  padding: 50px;
+  border-radius: 10px;
+  border-bottom: 8px solid $blue-shadow;
+  transition-duration: 0.1s;
+  outline: none;
+
+  p {
+    margin-bottom: 0;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  &:active {
+    outline: none;
+    transform: translateY(6px);
+    border-bottom-width: 2px;
+  }
+}
+
+.play-toggle {
+  flex: auto !important;
+}
+
+/* Overlay Paused */
+
+.overlay-paused {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  z-index: 998;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .overlay-info {
+    display: flex;
+    flex-basis: 65%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10vw 0 3vw;
+
+    h2 {
+      font-size: 3vh;
+      margin-bottom: 2vh;
+      color: gray;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 6vh;
+      line-height: 7.5vh;
+      margin-bottom: 3vh;
+      color: white;
+    }
+
+    p {
+      font-size: 2.5vh;
+      color: white;
+    }
+  }
+
+  .overlay-channels {
+    flex-basis: 35%;
+
+    h2 {
+      font-size: 3vh;
+      margin-bottom: 2vh;
+      color: gray;
+    }
+  }
+
+  .overlay-channels-item {
+    display: flex;
+    margin-bottom: 4vh;
+
+    img {
+      width: 6vh;
+      height: 6vh;
+      object-fit: cover;
+      border-radius: 100px;
+      margin-right: 1vw;
+    }
+  }
+
+  .overlay-channels-item-info {
+    p:first-child {
+      margin: 0;
+      color: white;
+      font-size: 2.6vh;
+      font-weight: 600;
+    }
+    p:last-child {
+      margin: 0;
+      font-size: 2vh;
+      color: #d4d4d4;
+    }
+  }
+}

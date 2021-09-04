@@ -1,6 +1,7 @@
 import HomePage from '../pages/consumer/homepage/HomePage'
 import Discovery from '../pages/consumer/discovery/Discovery'
 import Channel from '../pages/consumer/channel/Channel'
+import VideoPlayer from '../pages/consumer/videoplayer/VideoPlayer'
 
 import CreatorDashboard from '../pages/creator/dashboard/CreatorDashboard'
 import CreatorStudio from '../pages/creator/studio/CreatorStudio'
@@ -59,6 +60,11 @@ const routes = [
         path: 'channel/:channelId',
         exact: true,
         component: Channel
+      },
+      {
+        path: 'video/:videoId',
+        exact: true,
+        component: VideoPlayer
       }
     ]
   }
