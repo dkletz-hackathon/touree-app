@@ -1,0 +1,35 @@
+.videodetail-item {
+  margin-top: 1.5vh;
+  margin-bottom: 2.5vh;
+
+  p:first-child {
+    color: gray;
+    font-size: 1.5vh;
+    margin-bottom: 0.75vh;
+  }
+
+  img {
+    width: 28vh;
+    height: 18vh;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  h1 {
+    color: #2c2c2c;
+    font-size: 2vh;
+    font-weight: 600;
+    line-height: 2.5vh;
+    letter-spacing: normal;
+    margin: 0;
+  }
+
+  h2 {
+    color: #2c2c2c;
+    font-size: 1.7vh;
+    font-weight: normal;
+    line-height: 2.2vh;
+    letter-spacing: normal;
+    margin: 0;
+  }
+}
