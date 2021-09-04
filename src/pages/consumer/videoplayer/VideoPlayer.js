@@ -23,6 +23,11 @@ class VideoPlayer extends React.Component {
   render = () => {
     console.log('hello')
     console.log(this.state.body)
+
+		if (!this.state.body) {
+			return <div/>
+		}
+		
     return (
       <InteractiveVideo storyBook={this.state.body}/>
     );
