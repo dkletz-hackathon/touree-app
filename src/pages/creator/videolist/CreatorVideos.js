@@ -49,7 +49,7 @@ export default class CreatorVideos extends React.Component {
                       <p>12,428</p>
                     </div>
                     <div className="creator-video-item-actions">
-                      <Link to="videos/sadh_ioisd_iusdf">
+                      <Link to="videos/4923e492-2eaf-437a-941f-d643b755fef2">
                         <span className="material-icons">insert_chart_outlined</span>
                       </Link>
                       <span className="material-icons">create</span>
