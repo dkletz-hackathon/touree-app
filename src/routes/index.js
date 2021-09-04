@@ -1,12 +1,13 @@
 import HomePage from '../pages/consumer/homepage/HomePage'
 import CreatorDashboard from '../pages/creator/dashboard/CreatorDashboard'
+import CreatorStudio from '../pages/creator/studio/CreatorStudio'
 
 import MainPage from '../pages/layouts/mainsite/MainPage'
 import Dashboard from '../pages/layouts/dashboard/Dashboard'
 
 const routes = [
   {
-    path: '/dashboard',
+    path: '/dashboard/',
     component: Dashboard,
     children: [
       {
@@ -14,6 +15,12 @@ const routes = [
         exact: true,
         component: CreatorDashboard,
         useLayout: true,
+      },
+      {
+        path: 'studio',
+        exact: true,
+        component: CreatorStudio,
+        useLayout: false,
       }
     ]
   },
