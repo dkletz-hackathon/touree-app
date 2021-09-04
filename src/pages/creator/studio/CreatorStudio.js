@@ -65,14 +65,17 @@ const CreatorStudio = inject('nodeStore', 'projectStore')(observer(
     }
 
     let publishVideo = () => {
-      const { projectStore } = props
+      const { projectStore, nodeStore } = props
+
       uploadImage(projectStore.thumbnail)
         .then(fileName => {
           console.log(fileName)
           const { title, desc } = projectStore
           createProject(title, desc, fileName)
-            .then(data => {
-              console.log(data)
+            .then(uuid => {
+              console.log(uuid)
+              projectStore.setUuid(uuid)
+              nodeStore.publishStoryBook(uuid)
             })
           // Modal.close()
           // setTimeout(() => {
