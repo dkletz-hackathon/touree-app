@@ -8,6 +8,24 @@ $side-bar: 25vh;
   flex-wrap: wrap;
 }
 
+.mainpage-sidebar {
+  width: $side-bar;
+  border-right: 1px solid $border;
+}
+
+.mainpage-overlay {
+  position: fixed;
+  z-index: 3;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  transition-duration: 0.2s;
+
+  &.hidden {
+    display: none;
+  }
+}
+
 .mainpage-content {
   flex: 1;
 }
@@ -88,5 +106,116 @@ $side-bar: 25vh;
   &:hover {
     transform: scale(1.3, 1.3);
     border: 5px solid rgb(209, 209, 209);
+  }
+}
+
+/* Route */
+
+.mainpage-route {
+  margin-top: $search-bar;
+  margin-left: $side-bar;
+
+  &.hidden {
+    margin-left: 0;
+  }
+}
+
+/* Sidebar */
+
+$sidepad: 24px;
+
+.mainpage-sidebar {
+  height: 100vh;
+  position: fixed;
+  z-index: 999;
+  background: white;
+  transition-duration: 0.2s;
+
+  &.hidden {
+    transform: translateX(-#{$side-bar});
+  }
+
+  &.visible {
+    transform: translateX(#{$side-bar});
+  }
+}
+
+.mainpage-logo {
+  width: 55%;
+  padding: $sidepad;
+  padding-bottom: 3px;
+}
+
+.mainpage-user {
+  padding: $sidepad;
+  padding-bottom: 0;
+
+  img {
+    width: 4.5vh;
+    height: 4.5vh;
+    border-radius: 100px;
+    margin-bottom: 2vh;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2vh;
+    margin-bottom: 5px;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 1.5vh;
+    color: gray;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+}
+
+.mainpage-features {
+  padding: 0 $sidepad;
+  margin: 4vh 0;
+
+  h1 {
+    color: gray;
+    font-size: 1.2vh;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5vh;
+    line-height: normal;
+  }
+}
+
+.mainpage-features-item {
+  display: flex;
+  align-items: center;
+  margin: 1.4vh 0;
+  transition-duration: 0.1s;
+
+  span {
+    font-size: 20px;
+    margin-right: 1.5vh;
+    color: #9b9b9b;
+    transition-duration: 0.1s;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.5vh;
+    font-weight: 600;
+    color: #2b2b2b;
+    transition-duration: 0.1s;
+  }
+
+  &:hover {
+    span {
+      color: $blue-shadow;
+    }
+    p {
+      color: $blue;
+    }
   }
 }
