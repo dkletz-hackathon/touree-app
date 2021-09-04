@@ -194,7 +194,7 @@ input[type="file"] {
   button {
     border: none;
     border-radius: 100px;
-    background: #039FF2;
+    background: #f19e03;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -203,7 +203,7 @@ input[type="file"] {
     cursor: pointer;
     transition-duration: 0.1s;
     &:hover {
-      background: #0280C3;
+      background: #f18a03;
     }
   }
 }
