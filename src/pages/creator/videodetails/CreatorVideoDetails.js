@@ -4,6 +4,7 @@ import { Row, Col, CardHeader, Card, CardBody, Breadcrumb, BreadcrumbItem } from
 
 import './style.scss'
 import PageTitle from '../../../components/dashboard/PageTitle'
+import GraphAnalytics from './GraphAnalytics'
 
 export default function CreatorVideoDetails() {
   return (
@@ -22,7 +23,9 @@ export default function CreatorVideoDetails() {
           className="text-sm-left mb-3"/>
       </Row>
       <Row>
-        <Col lg="8"></Col>
+        <Col lg="8">
+          <GraphAnalytics />
+        </Col>
         <Col lg="4">
           <Card small>
             <CardHeader className="border-bottom">
