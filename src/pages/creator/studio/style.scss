@@ -211,3 +211,91 @@ input[type="file"] {
 .video-node:hover {
   background: #d7f1ff;
 }
+
+/* Studio modal */
+
+.studio-modal-header {
+  text-align: left;
+  font-size: 1.75vh;
+  color: gray;
+  margin-bottom: 2vh;
+}
+
+.studio-modal {
+  display: flex;
+  text-align: left;
+
+  .studio-modal-info {
+    padding-top: 2vh;
+  }
+
+  img {
+    width: 20vh;
+    height: 14vh;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 1.4vw;
+  }
+
+  h1 {
+    color: #252525;
+    font-size: 2.5vh;
+    font-weight: 600;
+    line-height: 3vh;
+  }
+
+  p {
+    font-size: 1.7vh;
+    line-height: 2.2vh;
+    margin-bottom: 2vh;
+  }
+
+  .studio-modal-info-icons {
+    display: flex;
+    align-items: center;
+  }
+
+  .material-icons {
+    color: rgb(177, 177, 177);
+    font-size: 2.25vh;
+    margin-right: 0.5vw;
+  }
+
+  .material-info {
+    font-size: 1.5vh;
+    margin-right: 1.5vw;
+  }
+}
+
+.studio-modal-actions {
+  margin-top: 2vh;
+  padding-top: 2vh;
+  border-top: 1px solid #e4e4e4;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 1vw;
+    font-size: 1.7vh;
+    padding: 1.35vh 2.75vh;
+    border-radius: 6px;
+    transition-duration: 0.15s;
+  }
+  button:first-child {
+    border: 2px solid #c9c9c9;
+    background: none;
+    &:hover {
+      background: #c9c9c9;
+    }
+  }
+  button:last-child {
+    border: 2px solid $blue;
+    background: $blue;
+    color: white;
+    font-weight: 600;
+    &:hover {
+      background: $blue-shadow;
+      border-color: $blue-shadow;
+    }
+  }
+}
