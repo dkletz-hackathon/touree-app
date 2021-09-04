@@ -1,5 +1,6 @@
 import HomePage from '../pages/consumer/homepage/HomePage'
 import Discovery from '../pages/consumer/discovery/Discovery'
+import Channel from '../pages/consumer/channel/Channel'
 
 import CreatorDashboard from '../pages/creator/dashboard/CreatorDashboard'
 import CreatorStudio from '../pages/creator/studio/CreatorStudio'
@@ -53,6 +54,11 @@ const routes = [
         path: 'discovery/:region',
         exact: true,
         component: Discovery
+      },
+      {
+        path: 'channel/:channelId',
+        exact: true,
+        component: Channel
       }
     ]
   }
