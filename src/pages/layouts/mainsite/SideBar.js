@@ -89,8 +89,8 @@ export default class SideBar extends React.Component {
           </Link>
           <div className="mainpage-user">
             <img src={profile1} alt="user" />
-            <h1>John Stallone</h1>
-            <h2>john.stallone@gmail.com</h2>
+            <h1>Jeff Carpenter</h1>
+            <h2>jeffrey.carpenter@gmail.com</h2>
           </div>
           {this.state.sections.map(sect => (
             <div className="mainpage-features" key={sect.title}>
