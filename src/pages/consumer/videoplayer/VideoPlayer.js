@@ -6,16 +6,26 @@ import storyBooks from '../../../data/storyBooks'
 import './style.scss'
 
 class VideoPlayer extends React.Component {
-  render() {
-    const { videoId } = this.props.match.params;
-    const storyBook = storyBooks.find((sb) => sb.id === videoId)
-    if (!storyBook) {
-      this.props.history.push('/')
-    }
+  constructor(props) {
+    super(props);
 
+    this.state = {}
+  }
+
+  componentDidMount = async () => {
+    const { videoId } = this.props.match.params
+    const response = await fetch(`http://www.touree.live/api/video/${videoId}?detail=true`)
+    this.setState({
+      body: (await response.json()).data
+    })
+  };
+
+  render = () => {
+    console.log('hello')
+    console.log(this.state.body)
     return (
-      <InteractiveVideo storyBook={storyBook} />
-    )
+      <InteractiveVideo storyBook={this.state.body}/>
+    );
   }
 }
 
