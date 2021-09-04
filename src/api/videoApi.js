@@ -41,6 +41,29 @@ async function createProject(title, desc, thumbnail) {
 	return await fetch(url, options).then((response) => response.json());
 }
 
+async function updateProject(id, title, desc, thumbnail, startDetailId=null) {
+	const url = `${BASE_URL}/video/${id}`;
+	const options = {
+		method: "PUT",
+		body: {
+			title: title,
+			description: desc,
+			thumbnail_image: thumbnail,
+			start_detail_id: startDetailId
+		},
+	};
+
+	return await fetch(url, options).then((response) => response.json());	
+}
+
+async function getProject(videoId) {
+	const url = `${BASE_URL}/video/${videoId}?detail=true`;
+	const options = { method: "GET" };
+
+	return await fetch(url, options).then((response) => response.json());
+}
+
+
 async function createChapter(
 	videoId,
 	videoURL,
@@ -96,6 +119,8 @@ async function deleteChapter(id) {
 export {
 	getVideo,
 	uploadVideo,
+	getProject,
+	updateProject,
 	createProject,
 	createChapter,
 	updateChapter,
