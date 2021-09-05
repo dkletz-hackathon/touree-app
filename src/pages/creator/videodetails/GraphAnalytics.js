@@ -263,7 +263,6 @@ export default class GraphAnalytics extends React.Component {
 					target: nextDetail.next_detail_id,
 				});
 			}
-			console.log(total);
 			let idx = 0;
 			for (let nextDetail of detail.next_video_details) {
 				if (!nextDetail.next_detail_id) {
@@ -272,6 +271,7 @@ export default class GraphAnalytics extends React.Component {
 
 				let _node = nodeMap[nextDetail.next_detail_id];
 				if (_node) {
+					_node.label.name = nextDetail.shown_text;
 					_node.label.total += total;
 					_node.position.x = nodeMap[detail.id].position.x + 200;
 					_node.position.y = nodeMap[detail.id].position.y + 125 * idx++;
