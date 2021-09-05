@@ -14,9 +14,26 @@ class VideoPlayer extends React.Component {
 
   componentDidMount = async () => {
     const { videoId } = this.props.match.params
-    const response = await fetch(`http://${window.location.hostname}/api/video/${videoId}?detail=true`)
+    const response = await fetch(`http://www.touree.live/api/video/${videoId}?detail=true`)
+    const data = (await response.json()).data
+
+    data.detailsMap = {}
+    data.details.forEach(videoDetail => {
+      data.detailsMap[videoDetail['id']] = videoDetail
+      videoDetail['next_video_details_map'] = {}
+      videoDetail['next_video_options'] = []
+      if (videoDetail['next_video_details'] == null) {
+        return
+      }
+      videoDetail['next_video_details'].forEach(nextVideo => {
+        videoDetail['next_video_details_map'][nextVideo['next_detail_id']] = nextVideo
+        videoDetail['next_video_options'].push(nextVideo['next_detail_id'])
+      })
+    })
+
+    console.log('details', data.detailsMap)
     this.setState({
-      body: (await response.json()).data
+      body: data
     })
   };
 
@@ -27,7 +44,7 @@ class VideoPlayer extends React.Component {
 		if (!this.state.body) {
 			return <div/>
 		}
-		
+
     return (
       <InteractiveVideo storyBook={this.state.body}/>
     );

@@ -76,11 +76,11 @@ const CreatorStudio = inject('nodeStore', 'projectStore')(observer(
               console.log(uuid)
               projectStore.setUuid(uuid)
               nodeStore.publishStoryBook(uuid)
+              Modal.close()
+              setTimeout(() => {
+                history.push('/dashboard')
+              }, 500)
             })
-          // Modal.close()
-          // setTimeout(() => {
-          //   history.push('/video/test-video')
-          // }, 500)
         })
     }
 

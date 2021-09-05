@@ -20,7 +20,8 @@
     "sweetalert2": "10.9.0",
     "sweetalert2-react-content": "3.2.1",
     "video-react": "^0.14.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "xid": "0.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -13,6 +13,7 @@ import {
 } from 'video-react'
 
 import 'video-react/dist/video-react.css'
+import xid from "xid";
 
 const UPDATE_INTERVAL = 5 // 5 ms
 const TIME_TO_UPDATE = 0.010 // 10 ms
@@ -29,6 +30,8 @@ class InteractiveVideo extends React.Component {
       showNext: false,
       isFullscreen: false,
       isPaused: true,
+      traceId: xid.generateId(),
+      parentVideoId: "",
       next: {},
     }
 
@@ -45,18 +48,31 @@ class InteractiveVideo extends React.Component {
     clearInterval(this.getStateInterval)
   }
 
+  publishEvent = async (eventType, id) => {
+    let body = {
+      trace_id: this.state.traceId,
+      timestamp: Date.now(),
+      video_id: this.state.parentVideoId,
+      current_video_id: this.state.currentChapterId,
+      previous_video_id: "",
+      user_id: ""
+    }
+    await fetch(`http://www.touree.live/api/event/${eventType}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+  }
+
   onUpdate = () => {
     const { chapters, currentChapterId, atStart } = this.state
     if (!this.players[this.currentPlayer]) {
       return
     }
 
-    let chapter
-    chapters.forEach(c => {
-      if (c['id'] === currentChapterId) {
-        chapter = c
-      }
-    })
+    let chapter = chapters[currentChapterId]
     const player = this.players[this.currentPlayer]
     const pState = player.getState();
     const remainingTime = pState.player.duration - pState.player.currentTime
@@ -71,6 +87,8 @@ class InteractiveVideo extends React.Component {
       player.play()
       return
     }
+
+    console.log('chapter', currentChapterId)
 
     if (remainingTime < TIME_TO_UPDATE) {
       this.nextChapter()
@@ -89,32 +107,31 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    const startingChapterId = storyBook?.start_detail_id
-    const chapters = storyBook?.details
+    let startingChapterId = storyBook?.start_detail_id
+    if (startingChapterId == null || startingChapterId === "") {
+      startingChapterId = storyBook?.details[0].id
+    }
+    const chapters = storyBook?.detailsMap
 
-    let startingChapter
-    chapters.forEach(c => {
-      if (c['id'] === startingChapterId) {
-        startingChapter = c
-      }
-    })
-    const nextChapters = startingChapter?.next_video_details
+    let startingChapter = chapters[startingChapterId]
+    const nextChapters = startingChapter?.next_video_details_map
 
     const playerContainers = []
     playerContainers.push({
       name: startingChapterId,
       zIndex: 1,
-      source: 'http://' + window.location.hostname + "/" + startingChapter?.video_url,
+      source: "http://www.touree.live/" + startingChapter?.video_url,
       nextChapterInContainer: true
     })
 
-    for (let i = 0; i < nextChapters.length; i++) {
-      const nextChapterId = nextChapters[i].id
+
+    for (let key in nextChapters) {
+      const nextChapterId = nextChapters[key].next_detail_id
       console.log(nextChapterId)
       playerContainers.push({
         name: nextChapterId,
         zIndex: 0,
-        source: 'http://' + window.location.hostname + "/" + chapters[nextChapterId]?.video_url,
+        source: "http://www.touree.live/" + chapters[nextChapterId]?.video_url,
       })
     }
 
@@ -124,6 +141,7 @@ class InteractiveVideo extends React.Component {
       showNext: false,
       currentChapterId: startingChapterId,
       chapters: chapters,
+      parentVideoId: storyBook?.id,
       playerContainers,
     }, () => { console.log('init story book', this.state) })
   }
@@ -135,14 +153,14 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    let curr
-    chapters.forEach(c => {
-      if (c['id'] === currentChapterId) {
-        curr = c
-      }
-    })
+    let curr = chapters[currentChapterId]
+    console.log('current chapter', curr)
     if (curr.next_video_details === null) {
       return
+    } else {
+      if (curr.next_video_details[0].next_detail_id == null) {
+        return
+      }
     }
 
     this.setState({
@@ -167,33 +185,41 @@ class InteractiveVideo extends React.Component {
 
     selection = selection || "default_next_detail_id"
     if (selection === "default_next_detail_id") {
-      selection = currentChapter[selection]
+      selection = currentChapter['next_video_details'][0]?.next_detail_id
+    } else {
+      selection = currentChapter['next_video_details'][selection]?.next_detail_id
     }
 
-    const nextChapterId = currentChapter.next_video_details[selection].next_detail_id
+
+    const nextChapterId = currentChapter.next_video_details_map[selection].next_detail_id
     const nextChapter = chapters[nextChapterId]
+
+    if (nextChapter == null) {
+      return;
+    }
+
+    this.publishEvent(1, nextChapterId)
     console.log('user select', nextChapter)
 
     console.log('starting to process player containers', playerContainers)
 
     let nextChapterNextOptions = []
+    console.log('video_detail', nextChapter.next_video_details)
     if (nextChapter.next_video_details) {
-      nextChapterNextOptions = []
-      for (let i = 0; i < nextChapter.next_video_details.length; i++) {
-        nextChapterNextOptions.push(i)
-      }
+      nextChapterNextOptions = [...nextChapter['next_video_options']]
     }
     playerContainers = playerContainers.map((playerContainer, i) => {
-      console.log(playerContainers)
+      console.log(playerContainer)
       let { source, name } = playerContainer
       if (playerContainer.name !== nextChapterId) {
-        if (nextChapter.next) {
-          name = nextChapter.next_video_details[nextChapterNextOptions.pop()].next_detail_id
-          source = chapters[name]?.source
+        if (nextChapterNextOptions.length > 0) {
+          console.log('options', nextChapterNextOptions)
+          name = nextChapter.next_video_details_map[nextChapterNextOptions.pop()].next_detail_id
+          source =  'http://www.touree.live/' + chapters[name]?.video_url
         }
       } else {
         name = nextChapterId
-        source = nextChapter?.source
+        source =  'http://www.touree.live/' + nextChapter?.video_url
         this.currentPlayer = i
       }
 
@@ -220,6 +246,7 @@ class InteractiveVideo extends React.Component {
     }, () => {
       const { playerContainers } = this.state
       playerContainers.forEach((playerContainer, i) => {
+
         if (!playerContainer) {
           return
         }
@@ -281,7 +308,7 @@ class InteractiveVideo extends React.Component {
           <h2>Creators</h2>
           {[1, 2, 3].map(i => (
             <div className="overlay-channels-item" key={i}>
-              <img src={`${this.props.storyBook?.thumbnail_image}`} alt="channel" />
+              <img src="https://images.unsplash.com/photo-1539409363834-aa99701db1d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2253&q=80" alt="channel" />
               <div className="overlay-channels-item-info">
                 <p>Andre Wibisono</p>
                 <p>1.8M subscribers</p>

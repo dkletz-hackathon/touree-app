@@ -178,6 +178,6 @@ export class NodeStore {
       }
     }
 
-    updateNote(this.nodeList, this.nodeList[0].id)
+    await updateNote(this.nodeList, this.nodeList[0].id)
   }
 }
