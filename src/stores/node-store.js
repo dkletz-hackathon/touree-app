@@ -1,5 +1,5 @@
 import { makeObservable, observable, action } from 'mobx'
-import { createChapter, updateChapter } from '../api/videoApi'
+import { createChapter, updateChapter, updateProject } from '../api/videoApi'
 
 export class NodeStore {
   curNodeIdx = 0
@@ -130,7 +130,7 @@ export class NodeStore {
     findNode(this.nodeList, id)
   }
 
-  publishStoryBook = async projectUuid => {
+  publishStoryBook = async (projectUuid, projectTitle, projectDesc, projectThumbnail) => {
     var mapIdToUuid = {}
 
     let findNode = async (nodes, id) => {
@@ -179,5 +179,13 @@ export class NodeStore {
     }
 
     await updateNote(this.nodeList, this.nodeList[0].id)
+
+    await updateProject(
+      projectUuid,
+      projectTitle,
+      projectDesc,
+      projectThumbnail,
+      mapIdToUuid[this.nodeList[0].id]
+    )
   }
 }
