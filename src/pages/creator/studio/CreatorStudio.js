@@ -75,7 +75,7 @@ const CreatorStudio = inject('nodeStore', 'projectStore')(observer(
             .then(uuid => {
               console.log(uuid)
               projectStore.setUuid(uuid)
-              projectStore.setThumbnail(fileName)
+              projectStore.setThumbnailUrl(fileName)
               nodeStore.publishStoryBook(uuid, title, desc, fileName)
               Modal.close()
               setTimeout(() => {
