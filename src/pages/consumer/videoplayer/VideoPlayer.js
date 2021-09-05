@@ -22,6 +22,9 @@ class VideoPlayer extends React.Component {
       data.detailsMap[videoDetail['id']] = videoDetail
       videoDetail['next_video_details_map'] = {}
       videoDetail['next_video_options'] = []
+      if (videoDetail['next_video_details'] == null) {
+        return
+      }
       videoDetail['next_video_details'].forEach(nextVideo => {
         videoDetail['next_video_details_map'][nextVideo['next_detail_id']] = nextVideo
         videoDetail['next_video_options'].push(nextVideo['next_detail_id'])

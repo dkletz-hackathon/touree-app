@@ -88,6 +88,8 @@ class InteractiveVideo extends React.Component {
       return
     }
 
+    console.log('chapter', currentChapterId)
+
     if (remainingTime < TIME_TO_UPDATE) {
       this.nextChapter()
     } else if (remainingTime < parseInt(chapter.time_to_show_next)) {
@@ -105,7 +107,10 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    const startingChapterId = storyBook?.start_detail_id
+    let startingChapterId = storyBook?.start_detail_id
+    if (startingChapterId == null || startingChapterId === "") {
+      startingChapterId = storyBook?.details[0].id
+    }
     const chapters = storyBook?.detailsMap
 
     let startingChapter = chapters[startingChapterId]
