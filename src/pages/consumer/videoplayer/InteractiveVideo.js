@@ -94,7 +94,7 @@ class InteractiveVideo extends React.Component {
     playerContainers.push({
       name: startingChapterId,
       zIndex: 1,
-      source: 'http://' + window.location.hostname + "/" + startingChapter?.video_url,
+      source: "http://www.touree.live/" + startingChapter?.video_url,
       nextChapterInContainer: true
     })
 
@@ -105,7 +105,7 @@ class InteractiveVideo extends React.Component {
       playerContainers.push({
         name: nextChapterId,
         zIndex: 0,
-        source: 'http://' + window.location.hostname + "/" + chapters[nextChapterId]?.video_url,
+        source: "http://www.touree.live/" + chapters[nextChapterId]?.video_url,
       })
     }
 
@@ -127,8 +127,13 @@ class InteractiveVideo extends React.Component {
     }
 
     let curr = chapters[currentChapterId]
+    console.log('current chapter', curr)
     if (curr.next_video_details === null) {
       return
+    } else {
+      if (curr.next_video_details[0].next_detail_id == null) {
+        return
+      }
     }
 
     this.setState({
@@ -158,31 +163,33 @@ class InteractiveVideo extends React.Component {
       selection = currentChapter['next_video_details'][selection]?.next_detail_id
     }
 
-    console.log(selection)
     const nextChapterId = currentChapter.next_video_details_map[selection].next_detail_id
     const nextChapter = chapters[nextChapterId]
+
+    if (nextChapter == null) {
+      return;
+    }
     console.log('user select', nextChapter)
 
     console.log('starting to process player containers', playerContainers)
 
     let nextChapterNextOptions = []
+    console.log('video_detail', nextChapter.next_video_details)
     if (nextChapter.next_video_details) {
-      nextChapterNextOptions = []
-      for (let i = 0; i < nextChapter.next_video_details.length; i++) {
-        nextChapterNextOptions.push(i)
-      }
+      nextChapterNextOptions = [...nextChapter['next_video_options']]
     }
     playerContainers = playerContainers.map((playerContainer, i) => {
-      console.log(playerContainers)
+      console.log(playerContainer)
       let { source, name } = playerContainer
       if (playerContainer.name !== nextChapterId) {
-        if (nextChapter.next) {
-          name = nextChapter.next_video_details[nextChapterNextOptions.pop()].next_detail_id
-          source =  'http://www.touree.live/' + chapters[name]?.source
+        if (nextChapterNextOptions.length > 0) {
+          console.log('options', nextChapterNextOptions)
+          name = nextChapter.next_video_details_map[nextChapterNextOptions.pop()].next_detail_id
+          source =  'http://www.touree.live/' + chapters[name]?.video_url
         }
       } else {
         name = nextChapterId
-        source =  'http://www.touree.live/' + nextChapter?.source
+        source =  'http://www.touree.live/' + nextChapter?.video_url
         this.currentPlayer = i
       }
 
@@ -271,7 +278,7 @@ class InteractiveVideo extends React.Component {
           <h2>Creators</h2>
           {[1, 2, 3].map(i => (
             <div className="overlay-channels-item" key={i}>
-              <img src={`${this.props.storyBook?.thumbnail_image}`} alt="channel" />
+              <img src="https://images.unsplash.com/photo-1539409363834-aa99701db1d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2253&q=80" alt="channel" />
               <div className="overlay-channels-item-info">
                 <p>Andre Wibisono</p>
                 <p>1.8M subscribers</p>
