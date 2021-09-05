@@ -13,6 +13,7 @@ import {
 } from 'video-react'
 
 import 'video-react/dist/video-react.css'
+import xid from "xid";
 
 const UPDATE_INTERVAL = 5 // 5 ms
 const TIME_TO_UPDATE = 0.010 // 10 ms
@@ -29,6 +30,8 @@ class InteractiveVideo extends React.Component {
       showNext: false,
       isFullscreen: false,
       isPaused: true,
+      traceId: xid.generateId(),
+      parentVideoId: "",
       next: {},
     }
 
@@ -43,6 +46,24 @@ class InteractiveVideo extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.getStateInterval)
+  }
+
+  publishEvent = async (eventType, id) => {
+    let body = {
+      trace_id: this.state.traceId,
+      timestamp: Date.now(),
+      video_id: this.state.parentVideoId,
+      current_video_id: this.state.currentChapterId,
+      previous_video_id: "",
+      user_id: ""
+    }
+    await fetch(`http://www.touree.live/api/event/${eventType}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
   }
 
   onUpdate = () => {
@@ -115,6 +136,7 @@ class InteractiveVideo extends React.Component {
       showNext: false,
       currentChapterId: startingChapterId,
       chapters: chapters,
+      parentVideoId: storyBook?.id,
       playerContainers,
     }, () => { console.log('init story book', this.state) })
   }
@@ -163,12 +185,15 @@ class InteractiveVideo extends React.Component {
       selection = currentChapter['next_video_details'][selection]?.next_detail_id
     }
 
+
     const nextChapterId = currentChapter.next_video_details_map[selection].next_detail_id
     const nextChapter = chapters[nextChapterId]
 
     if (nextChapter == null) {
       return;
     }
+
+    this.publishEvent(1, nextChapterId)
     console.log('user select', nextChapter)
 
     console.log('starting to process player containers', playerContainers)
