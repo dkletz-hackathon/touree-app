@@ -115,6 +115,7 @@ $main-pad: 0.5vw;
 .videos-section-items {
   display: flex;
   flex-wrap: wrap;
+	min-width: 70vw;
 
   a {
     padding: $main-pad;
