@@ -53,7 +53,7 @@ class InteractiveVideo extends React.Component {
       trace_id: this.state.traceId,
       timestamp: Date.now(),
       video_id: this.state.parentVideoId,
-      current_video_id: this.state.currentChapterId,
+      current_video_id: id,
       previous_video_id: "",
       user_id: ""
     }
@@ -87,8 +87,6 @@ class InteractiveVideo extends React.Component {
       player.play()
       return
     }
-
-    console.log('chapter', currentChapterId)
 
     if (remainingTime < TIME_TO_UPDATE) {
       this.nextChapter()
