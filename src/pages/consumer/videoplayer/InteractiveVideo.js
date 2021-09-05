@@ -51,12 +51,7 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    let chapter
-    chapters.forEach(c => {
-      if (c['id'] === currentChapterId) {
-        chapter = c
-      }
-    })
+    let chapter = chapters[currentChapterId]
     const player = this.players[this.currentPlayer]
     const pState = player.getState();
     const remainingTime = pState.player.duration - pState.player.currentTime
@@ -90,15 +85,10 @@ class InteractiveVideo extends React.Component {
     }
 
     const startingChapterId = storyBook?.start_detail_id
-    const chapters = storyBook?.details
+    const chapters = storyBook?.detailsMap
 
-    let startingChapter
-    chapters.forEach(c => {
-      if (c['id'] === startingChapterId) {
-        startingChapter = c
-      }
-    })
-    const nextChapters = startingChapter?.next_video_details
+    let startingChapter = chapters[startingChapterId]
+    const nextChapters = startingChapter?.next_video_details_map
 
     const playerContainers = []
     playerContainers.push({
@@ -108,8 +98,9 @@ class InteractiveVideo extends React.Component {
       nextChapterInContainer: true
     })
 
-    for (let i = 0; i < nextChapters.length; i++) {
-      const nextChapterId = nextChapters[i].id
+
+    for (let key in nextChapters) {
+      const nextChapterId = nextChapters[key].next_detail_id
       console.log(nextChapterId)
       playerContainers.push({
         name: nextChapterId,
@@ -135,12 +126,7 @@ class InteractiveVideo extends React.Component {
       return
     }
 
-    let curr
-    chapters.forEach(c => {
-      if (c['id'] === currentChapterId) {
-        curr = c
-      }
-    })
+    let curr = chapters[currentChapterId]
     if (curr.next_video_details === null) {
       return
     }
@@ -167,10 +153,13 @@ class InteractiveVideo extends React.Component {
 
     selection = selection || "default_next_detail_id"
     if (selection === "default_next_detail_id") {
-      selection = currentChapter[selection]
+      selection = currentChapter['next_video_details'][0]?.next_detail_id
+    } else {
+      selection = currentChapter['next_video_details'][selection]?.next_detail_id
     }
 
-    const nextChapterId = currentChapter.next_video_details[selection].next_detail_id
+    console.log(selection)
+    const nextChapterId = currentChapter.next_video_details_map[selection].next_detail_id
     const nextChapter = chapters[nextChapterId]
     console.log('user select', nextChapter)
 
@@ -189,11 +178,11 @@ class InteractiveVideo extends React.Component {
       if (playerContainer.name !== nextChapterId) {
         if (nextChapter.next) {
           name = nextChapter.next_video_details[nextChapterNextOptions.pop()].next_detail_id
-          source = chapters[name]?.source
+          source =  'http://www.touree.live/' + chapters[name]?.source
         }
       } else {
         name = nextChapterId
-        source = nextChapter?.source
+        source =  'http://www.touree.live/' + nextChapter?.source
         this.currentPlayer = i
       }
 
@@ -220,6 +209,7 @@ class InteractiveVideo extends React.Component {
     }, () => {
       const { playerContainers } = this.state
       playerContainers.forEach((playerContainer, i) => {
+
         if (!playerContainer) {
           return
         }
