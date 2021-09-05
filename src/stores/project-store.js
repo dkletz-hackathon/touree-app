@@ -4,6 +4,7 @@ export class ProjectStore {
   title = ''
   desc = ''
   thumbnail = null
+  thumbnailUrl = null
   uuid = ''
 
   constructor() {
@@ -12,10 +13,12 @@ export class ProjectStore {
       title: observable,
       desc: observable,
       thumbnail: observable,
+      thumbnailUrl: observable,
       setUuid: action,
       setTitle: action,
       setDesc: action,
       setThumbnail: action,
+      setThumbnailUrl: action,
     })
   }
 
@@ -33,5 +36,9 @@ export class ProjectStore {
 
   setThumbnail = thumbnail => {
     this.thumbnail = thumbnail
+  }
+
+  setThumbnailUrl = thumbnailUrl => {
+    this.thumbnailUrl = thumbnailUrl
   }
 }

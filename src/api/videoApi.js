@@ -26,6 +26,12 @@ async function getVideo(fileName) {
 	return await fetch(url, options).then((response) => response.json());
 }
 
+async function getProjects() {
+	const url = `${BASE_URL}/video`;
+
+	return await fetch(url, { method: "GET" }).then(response => response.json())
+}
+
 /* Create project API */
 async function createProject(title, desc, thumbnail) {
 	const url = `${BASE_URL}/video`;
@@ -47,13 +53,14 @@ async function createProject(title, desc, thumbnail) {
 async function updateProject(id, title, desc, thumbnail, startDetailId=null) {
 	const url = `${BASE_URL}/video/${id}`;
 	const options = {
-		method: "PUT",
-		body: {
+		method: "POST",
+    headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
 			title: title,
 			description: desc,
 			thumbnail_image: thumbnail,
 			start_detail_id: startDetailId
-		},
+		}),
 	};
 
 	return await fetch(url, options).then((response) => response.json());
@@ -130,6 +137,7 @@ export {
 	getVideo,
 	uploadVideo,
 	getProject,
+	getProjects,
 	updateProject,
 	createProject,
 	createChapter,

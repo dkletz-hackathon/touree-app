@@ -248,6 +248,10 @@ export default class GraphAnalytics extends React.Component {
 			let total = 0;
 			const _source = detail.id;
 
+			if (!detail.next_video_details) {
+				continue;
+			}
+
 			for (let nextDetail of detail.next_video_details) {
 				if (!nextDetail.next_detail_id) {
 					continue;
@@ -255,7 +259,7 @@ export default class GraphAnalytics extends React.Component {
 
 				let _node = nodeMap[nextDetail.next_detail_id];
 				if (_node) {
-					total += nextDetail.count?.play_count || 0;
+					total += _node.label.value || 0;
 				}
 
 				edges.push({
@@ -271,6 +275,7 @@ export default class GraphAnalytics extends React.Component {
 
 				let _node = nodeMap[nextDetail.next_detail_id];
 				if (_node) {
+					_node.label.name = nextDetail.shown_text;
 					_node.label.total += total;
 					_node.position.x = nodeMap[detail.id].position.x + 200;
 					_node.position.y = nodeMap[detail.id].position.y + 125 * idx++;
@@ -280,6 +285,9 @@ export default class GraphAnalytics extends React.Component {
 		for (let _node of nodes) {
 			if (_node.label.total === 0) {
 				_node.label.total = 1;
+			}
+			if (_node.label.total < _node.label.value) {
+				_node.label.total = _node.label.value;
 			}
 			_node.label.total = `${_node.label.total}`;
 		}
