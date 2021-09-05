@@ -133,6 +133,7 @@ class InteractiveVideo extends React.Component {
       })
     }
 
+    this.publishEvent(1, startingChapterId)
 
     this.setState({
       ...this.state,
