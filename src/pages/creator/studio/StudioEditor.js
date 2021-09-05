@@ -68,6 +68,7 @@ const StudioEditor = inject('nodeStore')(observer(
 
     render() {
       const nodes = toJS(this.props.nodeStore.nodeList)
+      console.log(nodes)
       return (
         <div
           className="editor-container"

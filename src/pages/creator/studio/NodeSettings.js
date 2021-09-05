@@ -23,9 +23,9 @@ const NodeSettings = inject('nodeStore')(observer(
       const { id, name, text, video } = this.state
       nodeStore.updateNode(id, name, text, video)
       uploadVideo(video)
-        .then(videoName => {
-          console.log(videoName)
-          nodeStore.updateNodeVideoName(id, videoName)
+        .then(videoURL => {
+          console.log(videoURL)
+          nodeStore.updateNodeVideoURL(id, videoURL)
         })
     }
 

@@ -16,7 +16,7 @@ export default class HomePageContents extends React.Component {
             </div>
             <div className="videos-section-items">
               {section.items.map((item, i) => (
-                <Link to="/video/test-video" key={i}>
+                <Link to="/video/4923e492-2eaf-437a-941f-d643b755fef2" key={i}>
                   <VideoThumbnail key={item.title} {...item} />
                 </Link>
               ))}
