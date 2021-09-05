@@ -248,6 +248,10 @@ export default class GraphAnalytics extends React.Component {
 			let total = 0;
 			const _source = detail.id;
 
+			if (!detail.next_video_details) {
+				continue;
+			}
+
 			for (let nextDetail of detail.next_video_details) {
 				if (!nextDetail.next_detail_id) {
 					continue;
@@ -281,7 +285,7 @@ export default class GraphAnalytics extends React.Component {
 		for (let _node of nodes) {
 			if (_node.label.total === 0) {
 				_node.label.total = 1;
-			} 
+			}
 			if (_node.label.total < _node.label.value) {
 				_node.label.total = _node.label.value;
 			}

@@ -26,6 +26,12 @@ async function getVideo(fileName) {
 	return await fetch(url, options).then((response) => response.json());
 }
 
+async function getProjects() {
+	const url = `${BASE_URL}/video`;
+
+	return await fetch(url, { method: "GET" }).then(response => response.json())
+}
+
 /* Create project API */
 async function createProject(title, desc, thumbnail) {
 	const url = `${BASE_URL}/video`;
@@ -130,6 +136,7 @@ export {
 	getVideo,
 	uploadVideo,
 	getProject,
+	getProjects,
 	updateProject,
 	createProject,
 	createChapter,
